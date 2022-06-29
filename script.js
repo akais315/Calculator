@@ -1,7 +1,7 @@
 function add(...args){
     let result = 0;
     for(const arg of args){
-        result += arg;
+        result += Number(arg);
     }
     return result;
 }
@@ -33,31 +33,32 @@ function divide(num, ...args){
 function operate(operator, num1, num2){
     switch(operator){
         case "+":
-            result = add(num1, num2);
+            finalResult = add(num1, num2);
             break;
         case "-":
-            result = substract(num1, num2);
+            finalResult = substract(num1, num2);
             break;
         case "*":
-            result = multiply(num1, num2);
+            finalResult = multiply(num1, num2);
             break;
         case "/":
-            result = divide(num1, num2);
+            finalResult = divide(num1, num2);
             break
         default:
-            result = "ERROR";
+            finalResult = "ERROR";
     }
-    display(result);
+    display(finalResult);
     resetValues();
+    number2 = 0;
 }
 
 function display(value){
     res = document.querySelector(".result");
-    res.innerHTML = value;
+    res.innerHTML = Number(value);
 }
 
 function resetValues(){
-    displayValue = "";
+    displayValue = 0;
     number1 = "";
     number2 = "";
     operator = null;
@@ -70,11 +71,19 @@ function clear(){
 
 function getNumber(e){
     if(operator === null){
-        number1 += e.target.id;
+        if(number1 === 0){
+            number1 = e.target.id;
+        }else{
+            number1 += e.target.id;
+        }
         displayValue = number1
         display(displayValue);
     }else{
-        number2 += e.target.id;
+        if(number2 === 0){
+            number2 += e.target.id;
+        }else{
+            number2 += e.target.id;
+        }
         displayValue = number2;
         display(displayValue);
     }
@@ -83,13 +92,23 @@ function getNumber(e){
 function getOperator(e){
     if(number2 === ""){
         operator = e.target.id;
+    }else if(number2 === 0){
+        number1 = finalResult;
+        console.log(number1);
+        operator = e.target.id;
+    }else{
+        operate(operator, number1, number2);
+        number1 = finalResult;
+        console.log(number1);
+        operator = e.target.id;
     }
 }
 
 let number1 = "";
 let operator = null;
 let number2 = "";
-let displayValue = "";
+let displayValue = 0;
+let finalResult = 0;
 
 let cl = document.querySelector(".clear");
 cl.addEventListener('click', clear);
