@@ -31,7 +31,6 @@ function divide(num, ...args){
 }
 
 function operate(operator, num1, num2){
-    let result = "ERROR"
     switch(operator){
         case "+":
             result = add(num1, num2);
@@ -46,9 +45,10 @@ function operate(operator, num1, num2){
             result = divide(num1, num2);
             break
         default:
-            console.log("Wrong operator");
+            result = "ERROR";
     }
-    return result;
+    display(result);
+    resetValues();
 }
 
 function display(value){
@@ -56,11 +56,15 @@ function display(value){
     res.innerHTML = value;
 }
 
-function clear(){
+function resetValues(){
     displayValue = "";
     number1 = "";
     number2 = "";
     operator = null;
+}
+
+function clear(){
+    resetValues();
     display(displayValue);
 }
 
@@ -70,7 +74,15 @@ function getNumber(e){
         displayValue = number1
         display(displayValue);
     }else{
-        number2 = e.target.id;
+        number2 += e.target.id;
+        displayValue = number2;
+        display(displayValue);
+    }
+}
+
+function getOperator(e){
+    if(number2 === ""){
+        operator = e.target.id;
     }
 }
 
@@ -81,5 +93,12 @@ let displayValue = "";
 
 let cl = document.querySelector(".clear");
 cl.addEventListener('click', clear);
+
 let digit = document.querySelectorAll(".digit");
-digit.forEach(num => {num.addEventListener('click', getNumber);})
+digit.forEach(num => {num.addEventListener('click', getNumber);});
+
+let ops = document.querySelectorAll('.operator');
+ops.forEach(operator => {operator.addEventListener('click', getOperator);});
+
+let equal = document.querySelector(".equal");
+equal.addEventListener('click', function() {operate(operator, number1, number2);});
