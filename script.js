@@ -54,7 +54,7 @@ function operate(operator, num1, num2){
 
 function display(value){
     res = document.querySelector(".result");
-    res.innerHTML = Number(value);
+    res.innerHTML = parseFloat(Number(value).toFixed(9));
 }
 
 function resetValues(){
@@ -109,6 +109,7 @@ let operator = null;
 let number2 = "";
 let displayValue = 0;
 let finalResult = 0;
+let allowPoint = true;
 
 let cl = document.querySelector(".clear");
 cl.addEventListener('click', clear);
