@@ -51,20 +51,35 @@ function operate(operator, num1, num2){
     return result;
 }
 
-function getNumber1(e){
-    number1 = e.target.id;
-    result = number1
-    displayResult(result);
-}
-
-function displayResult(result){
+function display(value){
     res = document.querySelector(".result");
-    res.innerHTML = result
+    res.innerHTML = value;
 }
 
-let number1 = null;
+function clear(){
+    displayValue = "";
+    number1 = "";
+    number2 = "";
+    operator = null;
+    display(displayValue);
+}
+
+function getNumber(e){
+    if(operator === null){
+        number1 += e.target.id;
+        displayValue = number1
+        display(displayValue);
+    }else{
+        number2 = e.target.id;
+    }
+}
+
+let number1 = "";
 let operator = null;
-let number2 = null;
-let result = null;
+let number2 = "";
+let displayValue = "";
+
+let cl = document.querySelector(".clear");
+cl.addEventListener('click', clear);
 let digit = document.querySelectorAll(".digit");
-digit.forEach(num => {num.addEventListener('click', getNumber1);})
+digit.forEach(num => {num.addEventListener('click', getNumber);})
