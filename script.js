@@ -126,3 +126,19 @@ ops.forEach(operator => {operator.addEventListener('click', getOperator);});
 
 let equal = document.querySelector(".equal");
 equal.addEventListener('click', function() {operate(operator, number1, number2);});
+
+function getKeyboardInput(e){
+    if(e.key === "=" || e.key === "Enter"){
+        document.getElementById('equal').click();
+    }else if(e.key === "Delete"){
+        document.getElementById('clear').click();
+    }
+    let keys = document.querySelectorAll("button");
+    for(key of keys){
+        if(e.key === key.id){
+            document.getElementById(key.id).click();
+        }
+    }
+}
+
+window.addEventListener('keydown', getKeyboardInput);
