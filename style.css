@@ -1,0 +1,45 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: lightblue;
+}
+
+.container{
+    background-color: black;
+    overflow: hidden;
+    border: 10px rgb(255, 255, 255);
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.result{
+    background-color: #b2b9b7;
+    font-size: 4.5em;
+    flex: 1;
+    text-align: right;
+}
+
+.row{
+    
+    display: flex;
+    justify-content: space-between;
+}
+
+button{
+    margin: 1px;
+    border-radius: 5px;
+    font-size: 2em;
+    flex: 1;
+}
+
+button.digit{
+    background-color: dodgerblue;
+}
+
+button.operator,
+button.equal{
+    background-color: #FF8F1F;
+}
