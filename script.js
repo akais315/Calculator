@@ -62,6 +62,7 @@ function resetValues(){
     number1 = "";
     number2 = "";
     operator = null;
+    allowPoint = true;
 }
 
 function clear(){
@@ -70,22 +71,26 @@ function clear(){
 }
 
 function getNumber(e){
-    if(operator === null){
-        if(number1 === 0){
-            number1 = e.target.id;
+    let digit = e.target.id;
+    if(digit !== "." || (digit === "." && allowPoint === true)){
+        if(digit === "."){ allowPoint = false};
+        if(operator === null){
+            if(number1 === 0){
+                number1 = digit;
+            }else{
+                number1 += digit;
+            }
+            displayValue = number1
+            display(displayValue);
         }else{
-            number1 += e.target.id;
+            if(number2 === 0){
+                number2 += digit;
+            }else{
+                number2 += digit;
+            }
+            displayValue = number2;
+            display(displayValue);
         }
-        displayValue = number1
-        display(displayValue);
-    }else{
-        if(number2 === 0){
-            number2 += e.target.id;
-        }else{
-            number2 += e.target.id;
-        }
-        displayValue = number2;
-        display(displayValue);
     }
 }
 
@@ -94,14 +99,13 @@ function getOperator(e){
         operator = e.target.id;
     }else if(number2 === 0){
         number1 = finalResult;
-        console.log(number1);
         operator = e.target.id;
     }else{
         operate(operator, number1, number2);
         number1 = finalResult;
-        console.log(number1);
         operator = e.target.id;
     }
+    allowPoint = true;
 }
 
 let number1 = "";
