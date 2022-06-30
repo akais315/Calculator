@@ -142,3 +142,5 @@ function getKeyboardInput(e){
 }
 
 window.addEventListener('keydown', getKeyboardInput);
+
+display(displayValue);
